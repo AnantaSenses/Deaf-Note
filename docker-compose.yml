@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: 'mysql/mysql-server:8.0'
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: 'deaf_note_app'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'qwerty'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+  server:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: 'mysql://root:@mysql:3306/deaf_note_app'
+      JWT_SECRET: 'P8HeRiCKVS4oTkmcGjLN193eXzDapLDb'
+      JWT_EXPIRES_IN: '1h'
